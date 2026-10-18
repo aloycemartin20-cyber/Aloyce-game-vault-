@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d18">
+  <title>Login / Sign Up | ALOYCE GAME VAULT</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080d18;--panel:#101a2b;--line:#263650;--blue:#36a5ff;--cyan:#69f0ff;--text:#eef6ff;--muted:#9aacc4;--danger:#ff7777;--ok:#70e6a1}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at top,#12335a 0,#080d18 48%,#050810 100%);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}
+    .wrap{width:min(100%,440px)}
+    .brand{text-align:center;margin-bottom:22px}
+    .logo{width:62px;height:62px;margin:0 auto 12px;border:1px solid #3479b9;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,#163b66,#0a1425);box-shadow:0 0 28px #168bff30;font-size:25px;font-weight:900;color:var(--cyan)}
+    h1{font-size:clamp(22px,5vw,29px);margin:0;letter-spacing:.5px}
+    .sub{margin:8px 0 0;color:var(--muted);font-size:14px}
+    .card{background:linear-gradient(180deg,#111e31f5,#0c1423f5);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 22px 70px #0008}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:5px;border:1px solid var(--line);border-radius:13px;background:#080f1c;margin-bottom:22px}
+    .tab{border:0;border-radius:9px;padding:12px 8px;background:transparent;color:var(--muted);font-weight:750;font-size:14px;cursor:pointer}
+    .tab.active{background:linear-gradient(100deg,#1686e7,#36b8ff);color:#04101e}
+    .field{margin:14px 0}
+    label{display:block;margin-bottom:7px;color:#d9e8fb;font-size:13px;font-weight:700}
+    input{width:100%;padding:13px 14px;border:1px solid #30425d;border-radius:11px;background:#080f1c;color:var(--text);font:inherit;outline:none}
+    input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #36a5ff20}
+    .primary,.secondary{width:100%;padding:13px 14px;border-radius:11px;font-weight:800;font-size:15px;cursor:pointer}
+    .primary{border:0;background:linear-gradient(100deg,#1686e7,#4bc7ff);color:#04101e;margin-top:10px}
+    .secondary{border:1px solid var(--line);background:#101a2b;color:var(--text);margin-top:10px}
+    button:disabled{opacity:.6;cursor:wait}
+    .message{display:none;margin:14px 0 0;padding:11px 12px;border-radius:10px;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+    .message.show{display:block}.message.error{background:#451b25;color:#ffd5d5;border:1px solid #853849}.message.success{background:#103526;color:#c8ffe0;border:1px solid #226e4b}.message.info{background:#102b43;color:#d7efff;border:1px solid #255d88}
+    .small{font-size:12px;color:var(--muted);line-height:1.6;margin:17px 0 0}
+    .small a,.link{color:var(--cyan);text-decoration:none}
+    .account{display:none;text-align:center}.account.show{display:block}
+    .account-icon{font-size:35px;margin:8px}
+    .email{color:var(--cyan);overflow-wrap:anywhere}
+    .back{display:block;text-align:center;color:var(--muted);font-size:13px;margin-top:18px;text-decoration:none}
+    .hidden{display:none!important}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="brand">
+      <div class="logo">AGV</div>
+      <h1>ALOYCE GAME VAULT</h1>
+      <p class="sub">Sign in to your gaming account</p>
+    </header>
+
+    <section class="card" id="authCard">
+      <div class="tabs" role="tablist" aria-label="Account options">
+        <button class="tab active" id="loginTab" type="button">Login</button>
+        <button class="tab" id="signupTab" type="button">Sign Up</button>
+      </div>
+
+      <form id="authForm">
+        <div class="field hidden" id="nameField">
+          <label for="displayName">Your name</label>
+          <input id="displayName" name="displayName" autocomplete="name" maxlength="60" placeholder="Enter your name">
+        </div>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required minlength="6" placeholder="At least 6 characters">
+        </div>
+        <div class="field hidden" id="confirmField">
+          <label for="confirmPassword">Confirm password</label>
+          <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="6" placeholder="Enter password again">
+        </div>
+        <button class="primary" id="submitButton" type="submit">Login</button>
+        <button class="secondary" id="resetButton" type="button">Forgot password?</button>
+      </form>
+      <div id="message" class="message" role="status" aria-live="polite"></div>
+      <p class="small">By continuing, you agree to use ALOYCE GAME VAULT responsibly. Keep your password private.</p>
+    </section>
+
+    <section class="card account" id="accountCard">
+      <div class="account-icon">🎮</div>
+      <h2>You're signed in!</h2>
+      <p class="sub">Account: <span class="email" id="accountEmail"></span></p>
+      <p class="sub" id="accountName"></p>
+      <button class="primary" id="continueButton" type="button">Continue to Game Vault</button>
+      <button class="secondary" id="logoutButton" type="button">Log Out</button>
+      <div id="accountMessage" class="message" role="status" aria-live="polite"></div>
+    </section>
+    <a class="back" href="./index.html">← Back to ALOYCE GAME VAULT</a>
+  </main>
+
+  <script type="module">
+    // STEP: Replace the placeholder values below with your Firebase Web App config.
+    // Firebase Console -> Project settings -> Your apps -> SDK setup and configuration.
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+      sendPasswordResetEmail, updateProfile, onAuthStateChanged, signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "PASTE_YOUR_FIREBASE_API_KEY",
+      authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "PASTE_YOUR_PROJECT_ID",
+      appId: "PASTE_YOUR_FIREBASE_APP_ID"
+    };
+
+    const configured = firebaseConfig.apiKey !== "PASTE_YOUR_FIREBASE_API_KEY"
+      && firebaseConfig.projectId !== "PASTE_YOUR_PROJECT_ID"
+      && firebaseConfig.appId !== "PASTE_YOUR_FIREBASE_APP_ID";
+
+    const loginTab = document.querySelector("#loginTab");
+    const signupTab = document.querySelector("#signupTab");
+    const nameField = document.querySelector("#nameField");
+    const confirmField = document.querySelector("#confirmField");
+    const nameInput = document.querySelector("#displayName");
+    const emailInput = document.querySelector("#email");
+    const passwordInput = document.querySelector("#password");
+    const confirmInput = document.querySelector("#confirmPassword");
+    const submitButton = document.querySelector("#submitButton");
+    const resetButton = document.querySelector("#resetButton");
+    const authForm = document.querySelector("#authForm");
+    const message = document.querySelector("#message");
+    const authCard = document.querySelector("#authCard");
+    const accountCard = document.querySelector("#accountCard");
+    const accountEmail = document.querySelector("#accountEmail");
+    const accountName = document.querySelector("#accountName");
+    const accountMessage = document.querySelector("#accountMessage");
+    let mode = "login";
+    let auth = null;
+
+    function showMessage(text, type = "info", target = message) {
+      target.textContent = text;
+      target.className = `message show ${type}`;
+    }
+    function clearMessage() {
+      message.textContent = "";
+      message.className = "message";
+    }
+    function setMode(nextMode) {
+      mode = nextMode;
+      const signup = mode === "signup";
+      loginTab.classList.toggle("active", !signup);
+      signupTab.classList.toggle("active", signup);
+      nameField.classList.toggle("hidden", !signup);
+      confirmField.classList.toggle("hidden", !signup);
+      nameInput.required = signup;
+      confirmInput.required = signup;
+      passwordInput.autocomplete = signup ? "new-password" : "current-password";
+      submitButton.textContent = signup ? "Create Account" : "Login";
+      resetButton.classList.toggle("hidden", signup);
+      clearMessage();
+    }
+    loginTab.addEventListener("click", () => setMode("login"));
+    signupTab.addEventListener("click", () => setMode("signup"));
+
+    function friendlyError(error) {
+      const map = {
+        "auth/email-already-in-use": "Email hii tayari imesajiliwa. Jaribu Login.",
+        "auth/invalid-email": "Tafadhali ingiza email sahihi.",
+        "auth/weak-password": "Password ni dhaifu. Tumia angalau herufi 6.",
+        "auth/invalid-credential": "Email au password si sahihi.",
+        "auth/user-not-found": "Akaunti haijapatikana. Jisajili kwanza.",
+        "auth/wrong-password": "Password si sahihi.",
+        "auth/too-many-requests": "Majaribio yamekuwa mengi. Subiri kidogo kisha jaribu tena.",
+        "auth/network-request-failed": "Mtandao umeshindwa. Kagua internet kisha jaribu tena.",
+        "auth/operation-not-allowed": "Washa Email/Password kwenye Firebase Authentication."
+      };
+      return map[error?.code] || `Imeshindikana: ${error?.message || "Jaribu tena."}`;
+    }
+
+    if (!configured) {
+      showMessage("Kabla ya kutumia login, jaza firebaseConfig ndani ya login.html kwa taarifa za Web App yako ya Firebase. Kisha hifadhi faili na ujaribu tena.", "info");
+    } else {
+      try {
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        onAuthStateChanged(auth, user => {
+          if (user) {
+            authCard.classList.add("hidden");
+            accountCard.classList.add("show");
+            accountEmail.textContent = user.email || "";
+            accountName.textContent = user.displayName ? `Karibu, ${user.displayName}` : "Karibu kwenye Game Vault!";
+          } else {
+            accountCard.classList.remove("show");
+            authCard.classList.remove("hidden");
+          }
+        });
+      } catch (error) {
+        showMessage("Firebase haijaanza. Kagua firebaseConfig yako. " + error.message, "error");
+      }
+    }
+
+    authForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      clearMessage();
+      if (!auth) {
+        showMessage("Firebase haijawekwa bado. Jaza firebaseConfig kwanza.", "error");
+        return;
+      }
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      submitButton.disabled = true;
+      try {
+        if (mode === "signup") {
+          const displayName = nameInput.value.trim();
+          if (password !== confirmInput.value) throw new Error("PASSWORD_MISMATCH");
+          const result = await createUserWithEmailAndPassword(auth, email, password);
+          if (displayName) await updateProfile(result.user, { displayName });
+          showMessage("Akaunti imetengenezwa kwa mafanikio!", "success");
+        } else {
+          await signInWithEmailAndPassword(auth, email, password);
+          showMessage("Umeingia kwa mafanikio!", "success");
+        }
+      } catch (error) {
+        showMessage(error.message === "PASSWORD_MISMATCH" ? "Password hazifanani." : friendlyError(error), "error");
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+
+    resetButton.addEventListener("click", async () => {
+      clearMessage();
+      if (!auth) return showMessage("Jaza firebaseConfig kwanza.", "error");
+      const email = emailInput.value.trim();
+      if (!email) return showMessage("Andika email yako kwanza, kisha bonyeza Forgot password.", "info");
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showMessage("Link ya kubadilisha password imetumwa kwenye email yako.", "success");
+      } catch (error) {
+        showMessage(friendlyError(error), "error");
+      }
+    });
+
+    document.querySelector("#logoutButton").addEventListener("click", async () => {
+      if (!auth) return;
+      try { await signOut(auth); }
+      catch (error) { showMessage(friendlyError(error), "error", accountMessage); }
+    });
+
+    document.querySelector("#continueButton").addEventListener("click", () => {
+      // This takes users back to the site's homepage. It does not by itself
+      // restrict access to files/pages; protect private data with backend rules.
+      window.location.href = "./index.html";
+    });
+  </script>
+</body>
+</html>
