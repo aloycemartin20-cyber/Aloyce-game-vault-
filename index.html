@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <meta name="description" content="ALOYCE GAME VAULT — discover PC, Android, open-world and indie games.">
+  <title>ALOYCE GAME VAULT — Discover Your Next Game</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Aloyce Game Vault home">
+      <span class="brand-mark">AG<span>V</span></span>
+      <span class="brand-name">ALOYCE <b>GAME VAULT</b><small>YOUR NEXT LEVEL STARTS HERE</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#home">Home</a>
+      <a class="nav-link" href="#library">Explore Games</a>
+      <a class="nav-link" href="#categories">Categories</a>
+      <a class="nav-link" href="#about">About</a>
+    </nav>
+    <div class="top-actions">
+      <button id="themeToggle" class="icon-button" aria-label="Toggle contrast" title="Toggle contrast">◐</button>
+      <button id="favoritesNav" class="favorite-nav">♡ <span>Saved</span> <i id="savedCount">0</i></button>
+      <button class="menu-button" id="menuButton" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> THE GAMING UNIVERSE</div>
+        <h1>FIND YOUR<br><span>NEXT ADVENTURE.</span></h1>
+        <p>Discover open worlds, action-packed adventures, PC classics and mobile games — all in one vault.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#library">Explore the vault <span>↗</span></a>
+          <a class="button button-ghost" href="#categories">Browse categories</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>CURATED</strong><small>Game discovery</small></div>
+          <div><strong>PC + MOBILE</strong><small>Multiple platforms</small></div>
+          <div><strong>PLAYER FIRST</strong><small>Official sources</small></div>
+        </div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Atmospheric neon gaming landscape">
+        <div class="hero-art-grid"></div>
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="hero-emblem"><span>AG</span><b>GAME<br>VAULT</b></div>
+        <div class="floating-tag tag-top">DISCOVER <b>NEW WORLDS</b></div>
+        <div class="floating-tag tag-bottom"><span class="status-dot"></span> YOUR LIBRARY, YOUR RULES</div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Site features">
+      <span>OPEN WORLD</span><i>✦</i><span>PC GAMING</span><i>✦</i><span>ANDROID</span><i>✦</i><span>INDIE GEMS</span><i>✦</i><span>GAME DISCOVERY</span>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-heading">
+        <div><div class="eyebrow">CHOOSE YOUR PLAYSTYLE</div><h2>EXPLORE BY <span>GENRE</span></h2></div>
+        <p>From huge open worlds to quick mobile sessions, start with what you love.</p>
+      </div>
+      <div class="category-grid">
+        <button class="category-card cat-open" data-category="Open World"><span class="category-icon">⌖</span><span><b>Open World</b><small>Explore without limits</small></span><span class="category-arrow">↗</span></button>
+        <button class="category-card cat-action" data-category="Action"><span class="category-icon">⚡</span><span><b>Action</b><small>Fast, intense gameplay</small></span><span class="category-arrow">↗</span></button>
+        <button class="category-card cat-mobile" data-category="Android"><span class="category-icon">▣</span><span><b>Android</b><small>Play on the go</small></span><span class="category-arrow">↗</span></button>
+        <button class="category-card cat-indie" data-category="Indie"><span class="category-icon">✳</span><span><b>Indie & Free</b><small>Find hidden gems</small></span><span class="category-arrow">↗</span></button>
+      </div>
+    </section>
+
+    <section class="section library-section" id="library">
+      <div class="section-heading library-heading">
+        <div><div class="eyebrow">THE COLLECTION</div><h2>THE GAME <span>VAULT</span></h2></div>
+        <div class="library-controls">
+          <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search games..." aria-label="Search games"></label>
+          <select id="sortSelect" aria-label="Sort games"><option value="featured">Featured</option><option value="az">Name A–Z</option><option value="za">Name Z–A</option></select>
+        </div>
+      </div>
+      <div class="filter-row" id="filterRow" aria-label="Filter games">
+        <button class="filter-chip selected" data-filter="All">All games <span id="allCount">8</span></button>
+        <button class="filter-chip" data-filter="Open World">Open World</button>
+        <button class="filter-chip" data-filter="Action">Action</button>
+        <button class="filter-chip" data-filter="Android">Android</button>
+        <button class="filter-chip" data-filter="Indie">Indie & Free</button>
+      </div>
+      <div class="games-grid" id="gamesGrid" aria-live="polite"></div>
+      <div class="empty-state" id="emptyState" hidden><div>⌕</div><h3>No games found</h3><p>Try a different title or category.</p><button class="button button-ghost" id="resetFilters">Reset filters</button></div>
+      <p class="source-note">Game names and trademarks belong to their respective owners. Availability and platform requirements may vary by region.</p>
+    </section>
+
+    <section class="feature-banner">
+      <div class="feature-symbol">AG<span>V</span></div>
+      <div><div class="eyebrow">BUILT FOR PLAYERS</div><h2>YOUR NEXT GREAT GAME<br>IS <span>WAITING.</span></h2><p>Save favourites, explore categories and follow official game sources.</p></div>
+      <a href="#library" class="button button-primary">Start exploring <span>↗</span></a>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div class="section-heading"><div><div class="eyebrow">ABOUT THE PROJECT</div><h2>MADE BY <span>ALOYCE GAMING</span></h2></div></div>
+      <div class="about-panel"><div class="about-logo">AG<span>V</span></div><div><h3>A gaming hub with room to grow.</h3><p>ALOYCE GAME VAULT is a community-style game discovery website. This starter version runs as a static site and can be hosted free with GitHub Pages. Add your own game listings and official links in <code>app.js</code>.</p></div></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="brand footer-brand" href="#"><span class="brand-mark">AG<span>V</span></span><span class="brand-name">ALOYCE <b>GAME VAULT</b><small>PLAY SMART. EXPLORE MORE.</small></span></a>
+    <p>© <span id="year"></span> Aloyce Gaming. Fan-made game discovery hub.</p>
+    <div class="footer-links"><a href="#home">Back to top ↑</a><a href="#about">About</a></div>
+  </footer>
+
+  <dialog id="gameDialog" class="game-dialog">
+    <button class="dialog-close" id="dialogClose" aria-label="Close details">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
